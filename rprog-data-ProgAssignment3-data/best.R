@@ -22,9 +22,9 @@ best <- function(state, outcome){
         
         #Get a subset of the data that contains the state you are interested in
         correct_state <- data[data[, 7] == state, ]
-        outcome_arr <- correct_state[, pointer]
-        min <- min(outcome_arr, na.rm=T)
-        index <- which(outcome_arr == min)
+        correct_outcome <- correct_state[, pointer]
+        min <- min(correct_outcome, na.rm=T)
+        index <- which(correct_outcome == min)
         print(correct_state[index, 2])
 
         ## check that state and outcome are valid
