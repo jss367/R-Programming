@@ -16,6 +16,7 @@ rankhospital <- function(state, outcome, num = "best"){
                 stop ("invalid outcome")
         }
         
+                
         #Convert that data to be numeric
         suppressWarnings(data[,pointer] <- as.numeric(data[,pointer]))
         
@@ -29,11 +30,16 @@ rankhospital <- function(state, outcome, num = "best"){
         
         correct_state = data[data[,7] == state, ]
         #Change header of pointer to "Rate"
+        names(correct_state)[pointer] <-"Rate"
         
-        
-        index = order(correct_state$ZIP.Code, decreasing = T)
+        index = order(correct_state$Rate, correct_state$Hospital.Name, decreasing = F)
         ordered_state = correct_state[index, ]
-        print(head(ordered_state, 2))
-        correct_outcome <- correct_state[, pointer]
-        #head(correct_outcome, 15)
+        ordered_state <- na.omit(ordered_state)
+        hosps <- ordered_state$Hospital.Name
+        if (num == "best"){
+                num <- 1
+        } else if (num == "worst"){
+                num <- length(hosps)
+        }
+        print(ordered_state$Hospital.Name[num])
 }
