@@ -13,7 +13,7 @@ best <- function(state, outcome){
                 stop ("invalid outcome")
         }
         #Convert that data to be numeric
-        data[,pointer] <- as.numeric(data[,pointer])
+        suppressWarnings(data[,pointer] <- as.numeric(data[,pointer]))
 
         #Check if the state is valid:
         if (!state %in% data$State){
@@ -26,7 +26,21 @@ best <- function(state, outcome){
         min <- min(outcome_arr, na.rm=T)
         index <- which(outcome_arr == min)
         print(correct_state[index, 2])
-        print (min)
 
         ## check that state and outcome are valid
 }
+
+#best("TX", "heart attack")
+#"CYPRESS FAIRBANKS MEDICAL CENTER"
+#best("TX", "heart failure")
+#"FORT DUNCAN MEDICAL CENTER"
+#best("MD", "heart attack")
+#"JOHNS HOPKINS HOSPITAL, THE"
+#best("MD", "pneumonia")
+#"GREATER BALTIMORE MEDICAL CENTER"
+#best("BB", "heart attack")
+#Error in best("BB", "heart attack") : invalid state
+#best("NY", "hert attack")
+#Error in best("NY", "hert attack") : invalid outcome
+
+
